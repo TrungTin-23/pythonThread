@@ -5,10 +5,10 @@ import threading
 import time, os
 from datetime import datetime  
 import subprocess  
-                                                   
+
 client = None
 
-TOPIC_P_TELEMETRY = "v1/devices/me/telemetry"
+#TOPIC_P_TELEMETRY = "v1/devices/me/telemetry"
 TOPIC_P_ATTRIBUTES = "v1/devices/me/attributes"
 TOPIC_P_CLIENT_RPC = "v1/devices/me/rpc/response/+"
 TOPIC_S_SERVER_RPC = "v1/devices/me/rpc/request/+" 
@@ -153,8 +153,11 @@ def thingsboard():
         client = mqtt.Client()
         client.on_connect = on_connect
         client.on_message = on_message
-        client.username_pw_set(get_token())
-        client.connect(get_server(), 3009, 60)
+
+
+        client.username_pw_set("dytWANKgZBEdQ1oDwwkO") # Access token
+        client.connect("212.38.94.144", 1884, 60) # Server host
+        client.publish("v1/devices/me/telemetry", json.dumps({"temperature": "44"}), 1)
         client.loop_forever()
     except Exception as e:
         print(e)
@@ -164,7 +167,7 @@ def thingsboard():
 
 def main():
     try:
-        waiting_for_network()
+       # waiting_for_network()
 
         t = threading.Thread(target=thingsboard)
         t.start()
