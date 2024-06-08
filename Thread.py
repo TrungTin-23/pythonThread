@@ -4,7 +4,8 @@ import json
 import threading
 import time, os
 from datetime import datetime  
-import subprocess                                                     
+import subprocess  
+                                                   
 client = None
 
 TOPIC_P_TELEMETRY = "v1/devices/me/telemetry"
